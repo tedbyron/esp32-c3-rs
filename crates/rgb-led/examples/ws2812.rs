@@ -3,7 +3,7 @@ use esp_idf_hal::delay::FreeRtos;
 use esp_idf_hal::peripherals::Peripherals;
 use esp_idf_sys as _;
 use log::info;
-use rgb_led::WS2812RMT;
+use rgb_led::Ws2812Rmt;
 
 fn main() -> Result<()> {
     esp_idf_sys::link_patches();
@@ -13,7 +13,7 @@ fn main() -> Result<()> {
     // ESP32-C3-DevKit-RUST-1 gpio2,  ESP32-C3-DevKitC-02 gpio8
     let led = peripherals.pins.gpio2;
     let channel = peripherals.rmt.channel0;
-    let mut ws2812 = WS2812RMT::new(led, channel)?;
+    let mut ws2812 = Ws2812Rmt::new(led, channel)?;
     loop {
         info!("Red!");
         ws2812.set_pixel(rgb::RGB8::new(255, 0, 0))?;

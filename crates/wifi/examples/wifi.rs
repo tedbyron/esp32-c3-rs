@@ -20,13 +20,16 @@ fn main() -> Result<()> {
     let sysloop = EspSystemEventLoop::take()?;
 
     let app_config = CONFIG;
-    match wifi(
+    let _wifi = match wifi(
         app_config.wifi_ssid,
         app_config.wifi_psk,
         peripherals.modem,
         sysloop,
     ) {
-        Ok(_) => println!("Connected to Wi-Fi network!"),
+        Ok(wifi) => {
+            println!("Connected to Wi-Fi network!");
+            wifi
+        }
         Err(err) => bail!("Could not connect to Wi-Fi network: {:?}", err),
     };
 

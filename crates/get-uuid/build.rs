@@ -1,8 +1,10 @@
-use std::{fs::File, io::Write};
+use std::fs::File;
+use std::io::Write;
 
+use anyhow::Result;
 use uuid::Uuid;
 
-fn main() -> anyhow::Result<()> {
+fn main() -> Result<()> {
     if let Ok(_already_exists) = File::open("uuid.toml") {
         return Ok(());
     }

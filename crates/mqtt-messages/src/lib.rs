@@ -1,9 +1,6 @@
-use rgb::ComponentSlice;
-use std::{
-    borrow::{Borrow, Cow},
-    str,
-};
+use std::borrow::{Borrow, Cow};
 
+use rgb::ComponentSlice;
 pub use rgb::RGB8;
 
 /// Handles `EspMqttMessage` with MQTT hierarchy
@@ -50,7 +47,7 @@ impl Command {
     }
 }
 
-/// `ColorData` is a simplified `Command`
+/// `ColorData` is a simplified [`Command`]
 pub enum ColorData {
     BoardLed(RGB8),
 }
@@ -94,7 +91,6 @@ impl<'a> TryFrom<RawCommandData<'a>> for Command {
     type Error = ConvertError;
 
     fn try_from(value: RawCommandData<'_>) -> Result<Self, Self::Error> {
-        //if value.path == Command::BOARD_LED {
         if value.path.is_empty() {
             let data: &[u8] = value.data.borrow();
             let data: [u8; 3] = data
