@@ -1,7 +1,7 @@
 # esp32-c3-rs
 
 ```shell
-rustup toolchain install nightly-2023-04-04 --component rust-src
+rustup toolchain install nightly --component rust-src
 cargo install espflash ldproxy
 
 sudo apt install git llvm-dev libclang-dev clang gcc ninja-build cmake ccache libudev-dev python3 \

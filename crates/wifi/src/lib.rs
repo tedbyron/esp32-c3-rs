@@ -8,8 +8,15 @@ use esp_idf_hal::peripheral;
 use esp_idf_svc::eventloop::EspSystemEventLoop;
 use esp_idf_svc::netif::{EspNetif, EspNetifWait};
 use esp_idf_svc::wifi::{EspWifi, WifiWait};
-use esp_idf_sys::nvs_flash_init;
 use log::info;
+
+#[toml_cfg::toml_config]
+pub struct Config {
+    #[default("")]
+    ssid: &'static str,
+    #[default("")]
+    psk: &'static str,
+}
 
 pub fn wifi(
     ssid: &str,
@@ -17,8 +24,6 @@ pub fn wifi(
     modem: impl peripheral::Peripheral<P = esp_idf_hal::modem::Modem> + 'static,
     sysloop: EspSystemEventLoop,
 ) -> Result<Box<EspWifi<'static>>> {
-    unsafe { nvs_flash_init() };
-
     let mut auth_method = AuthMethod::WPA2Personal;
     if ssid.is_empty() {
         bail!("Missing WiFi name")

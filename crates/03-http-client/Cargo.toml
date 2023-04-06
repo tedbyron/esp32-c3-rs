@@ -1,11 +1,7 @@
 [package]
-name = "hello-board"
+name = "http-client"
 version = "0.1.0"
 edition = "2021"
-
-[features]
-default = ["native"]
-native = ["esp-idf-sys/native"]
 
 [build-dependencies]
 anyhow = "=1.0.69"
@@ -13,9 +9,8 @@ embuild = "=0.31.1"
 
 [dependencies]
 anyhow = "=1.0.69"
+embedded-svc = "=0.24.0"
 esp-idf-hal = "=0.40.1"
-esp-idf-svc = { version = "=0.45.0", features = ["experimental", "alloc"] }
+esp-idf-svc = { version = "0.45.0", features = ["experimental", "alloc"] }
 esp-idf-sys = { version = "=0.32.1", features = ["binstart"] }
-log = "=0.4.17"
-rgb-led = { path = "../rgb-led" }
 wifi = { path = "../wifi" }

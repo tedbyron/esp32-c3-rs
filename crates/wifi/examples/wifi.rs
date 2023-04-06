@@ -2,15 +2,6 @@ use anyhow::{bail, Result};
 use esp_idf_hal::prelude::Peripherals;
 use esp_idf_svc::eventloop::EspSystemEventLoop;
 use esp_idf_sys as _;
-use wifi::wifi;
-
-#[toml_cfg::toml_config]
-pub struct Config {
-    #[default("")]
-    wifi_ssid: &'static str,
-    #[default("")]
-    wifi_psk: &'static str,
-}
 
 fn main() -> Result<()> {
     esp_idf_sys::link_patches();
@@ -19,13 +10,8 @@ fn main() -> Result<()> {
     let peripherals = Peripherals::take().unwrap();
     let sysloop = EspSystemEventLoop::take()?;
 
-    let app_config = CONFIG;
-    let _wifi = match wifi(
-        app_config.wifi_ssid,
-        app_config.wifi_psk,
-        peripherals.modem,
-        sysloop,
-    ) {
+    let cfg = wifi::CONFIG;
+    let _wifi = match wifi::wifi(cfg.wifi_ssid, cfg.wifi_psk, peripherals.modem, sysloop) {
         Ok(wifi) => {
             println!("Connected to Wi-Fi network!");
             wifi
